@@ -29,7 +29,7 @@ class Video(object):
         self.__dict__.update(**attributes)
 
     def download(self, path=None, chunk_size=8*1024,
-                 on_progress=None, on_finish=None):
+                 on_progress=None, on_finish=None, verbose=True):
         """
         Downloads the file of the URL defined within the class
         instance.
@@ -63,8 +63,9 @@ class Video(object):
         try:
             with open(fullpath, 'wb') as dst_file:
                 # Print downloading message
-                print("\nDownloading: '{0}.{1}' (Bytes: {2})\n\n".format(
-                      self.filename, self.extension, file_size))
+                if verbose:
+                    print("\nDownloading: '{0}.{1}' (Bytes: {2})\n\n".format(
+                          self.filename, self.extension, file_size))
 
                 while True:
                     self._buffer = response.read(chunk_size)
